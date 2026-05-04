@@ -22,8 +22,9 @@ body {
 
 .logo {
     position: absolute;
-    left: 175px;
-    top: 1px;
+    top: -90px;
+    left: -120px;
+    right: 100px;
     width: 600px;
     height: 400px;
     z-index: 3;
@@ -31,10 +32,10 @@ body {
 
 .vector {
     position: absolute;
-    left: 300px;
-    top: 150px;
-    height: 100px;
-    width: 500px;
+    left: 0px;
+    top: 79px;
+    height: 60px;
+    width: 700px;
     z-index: 2;
 
 }
