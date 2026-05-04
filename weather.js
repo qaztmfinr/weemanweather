@@ -28,4 +28,18 @@ async function getWeatherByCity() {
         weatherResult.textContent = "City could not be found :(";
         return;
     }
+
+    const location = geoData.results[0];
+    const latitude = location.latitude;
+    const longitude = location.longitude;
+
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph`;
+
+    const weatherResponse = await fetch(weatherUrl);
+    const weatherData = await weatherResponse.json;
+
+    const temp = weatherData.current.temperature_2m;
+    const wind = weatherData.current.wind_speed_10;
+
+    weatherResult.textContent = `${location.name}, ${location.amdmin1}: ${temp}°F, Wind ${wind} mph`;
 }
