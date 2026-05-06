@@ -42,4 +42,49 @@ async function getWeatherByCity() {
     const wind = weatherData.current.wind_speed_10;
 
     weatherResult.textContent = `${location.name}, ${location.amdmin1}: ${temp}°F, Wind ${wind} mph`;
+
 }
+
+const cycleCity = document.getElementById("cycleCity");
+const cycleWeather = document.getElementById("cycleWeather");
+
+const topCities = [
+  { name: "New York", state: "NY", latitude: 40.7128, longitude: -74.0060 },
+  { name: "Los Angeles", state: "CA", latitude: 34.0522, longitude: -118.2437 },
+  { name: "Chicago", state: "IL", latitude: 41.8781, longitude: -87.6298 },
+  { name: "Houston", state: "TX", latitude: 29.7604, longitude: -95.3698 }
+];
+
+let currentCityIndex = 0;
+
+async function showNextCityWeather() {
+  const city = topCities[currentCityIndex];
+
+  cycleCity.textContent = `${city.name}, ${city.state}`;
+  cycleWeather.textContent = "Loading...";
+
+  try {
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph`;
+
+    const response = await fetch(weatherUrl);
+    const data = await response.json();
+
+    const temp = Math.round(data.current.temperature_2m);
+    const wind = Math.round(data.current.wind_speed_10m);
+
+    cycleWeather.textContent = `${temp}°F  Wind ${wind} mph`;
+  } catch (error) {
+    cycleWeather.textContent = "Weather unavailable";
+    console.error(error);
+  }
+
+  currentCityIndex++;
+
+  if (currentCityIndex >= topCities.length) {
+    currentCityIndex = 0;
+  }
+}
+
+showNextCityWeather();
+
+setInterval(showNextCityWeather, 5000);
