@@ -88,3 +88,29 @@ async function showNextCityWeather() {
 showNextCityWeather();
 
 setInterval(showNextCityWeather, 5000);
+
+function getWeatherDescription(code) {
+  const weatherCodes = {
+    0: "Clear",
+    1: "Mostly Clear",
+    2: "Partly Cloudy",
+    3: "Cloudy",
+    45: "Fog",
+    48: "Rime Fog",
+    51: "Light Drizzle",
+    53: "Drizzle",
+    55: "Heavy Drizzle",
+    61: "Light Rain",
+    63: "Rain",
+    65: "Heavy Rain",
+    71: "Light Snow",
+    73: "Snow",
+    75: "Heavy Snow",
+    80: "Light Showers",
+    81: "Showers",
+    82: "Heavy Showers",
+    95: "Thunderstorm"
+  };
+
+  return weatherCodes[code] || "Unknown";
+}
