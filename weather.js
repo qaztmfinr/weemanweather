@@ -114,3 +114,8 @@ function getWeatherDescription(code) {
 
   return weatherCodes[code] || "Unknown";
 }
+
+const code = data.current.weather_code;
+const condition = getWeatherDescription(code);
+
+cycleWeather.textContent = `${temp}°F  ${condition}  Wind ${wind} mph`;
